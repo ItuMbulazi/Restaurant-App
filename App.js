@@ -1,21 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {Center,NativeBaseProvider} from 'native-base'
+import { NavigationContainer } from '@react-navigation/native';
+import {Text} from 'react-native'
+import React from 'react'
+import Menu from './components/menu'
+import ItemView from "./components/ItemView";
+
+import Context from './components/context';
+import BtmNav from './components/btmNav'
+import Stack1 from './components/Stack'
+import Cart from './components/cart'
+
+
+
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const Stack = createNativeStackNavigator();
+  const [cart,setCart]=React.useState([]);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+ 
+
+
+  return(
+    <NativeBaseProvider>
+
+   
+  <NavigationContainer>
+          <Stack.Navigator screenOptions={{headerShown:false}}>
+<Stack.Screen name="Menu" component={Menu}/>
+<Stack.Screen name="Item" >
+{props=><ItemView setCart={setCart}/>}
+  </Stack.Screen>
+<Stack.Screen name="cart" component={Cart}/>
+      </Stack.Navigator>
+  </NavigationContainer>
+  </NativeBaseProvider>
+)
+}
+  
+
+  
+  
